@@ -189,7 +189,7 @@ class Parallel
   end
 
   def self.process_incoming_jobs(read, write, items, options, &block)
-    while (puts "#{Process.pid} read"; input = read.gets; puts "#{Process.pid} readed => #{input.inspect}"; input) and input != "\n"
+    while (input = read.gets) and input != "\n"
       index = decode(input.chomp)
       begin
         result = call_with_index(items, index, options, &block)
