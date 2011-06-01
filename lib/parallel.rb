@@ -121,6 +121,7 @@ class Parallel
     result = Array.new(items.size)
     exception = nil
 
+    puts "#{Socket.gethostname} #{Process.pid} => worker initialize"
     workers.each do |worker|
       listener_threads << Thread.new do
         begin
@@ -147,6 +148,7 @@ class Parallel
         end
       end
     end
+    puts "#{Socket.gethostname} #{Process.pid} => worker initialized"
 
     require 'socket'
 
