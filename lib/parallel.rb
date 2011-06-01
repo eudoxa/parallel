@@ -1,5 +1,6 @@
 require 'thread' # to get Thread.exclusive
 require 'base64'
+require 'socket'
 
 class Parallel
   VERSION = File.read( File.join(File.dirname(__FILE__),'..','VERSION') ).strip
@@ -150,7 +151,6 @@ class Parallel
     end
     puts "#{Socket.gethostname} #{Process.pid} => worker initialized"
 
-    require 'socket'
 
     puts "#{Socket.gethostname} #{Process.pid} => wait_threads"
     wait_for_threads(listener_threads)
