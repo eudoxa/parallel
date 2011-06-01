@@ -77,7 +77,7 @@ class Parallel
   def self.hwprefs_available?
     `which hwprefs` != ''
   end
-
+t
   def self.work_in_threads(items, options, &block)
     results = []
     current = -1
@@ -148,15 +148,16 @@ class Parallel
       end
     end
 
+    require 'socket'
 
-    puts "#{Process.pid} => wait_threads"
+    puts "#{Socket.gethostname} #{Process.pid} => wait_threads"
     wait_for_threads(listener_threads)
-    puts "#{Process.pid} => done_threads"
+    puts "#{Socket.gethostname} #{Process.pid} => done_threads"
 
     # if they go zombie, rather wait here to be able to debug
-    puts "#{Process.pid} => wait_processes"
+    puts "#{Socket.gethostname} #{Process.pid} => wait_processes"
     wait_for_processes(workers.map{|worker| worker[:pid] })
-    puts "#{Process.pid} => done_processes"
+    puts "#{Socket.gethostname} #{Process.pid} => done_processes"
 
     raise exception if exception
 
