@@ -148,10 +148,15 @@ class Parallel
       end
     end
 
+
+    puts "#{Process.pid} => wait_threads"
     wait_for_threads(listener_threads)
+    puts "#{Process.pid} => done_threads"
 
     # if they go zombie, rather wait here to be able to debug
+    puts "#{Process.pid} => wait_processes"
     wait_for_processes(workers.map{|worker| worker[:pid] })
+    puts "#{Process.pid} => done_processes"
 
     raise exception if exception
 
@@ -184,7 +189,7 @@ class Parallel
   end
 
   def self.process_incoming_jobs(read, write, items, options, &block)
-    while input = read.gets and input != "\n"
+    while (puts "#{Process.pid} read"; input = read.gets; puts "#{Process.pid} readed => #{input.inspect}"; input) and input != "\n"
       index = decode(input.chomp)
       begin
         result = call_with_index(items, index, options, &block)
