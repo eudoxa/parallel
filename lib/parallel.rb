@@ -77,7 +77,7 @@ class Parallel
   def self.hwprefs_available?
     `which hwprefs` != ''
   end
-t
+
   def self.work_in_threads(items, options, &block)
     results = []
     current = -1
